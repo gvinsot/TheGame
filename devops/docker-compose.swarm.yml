@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   thegame:
-    image: thegame:latest
+    image: registry.methodinfo.fr/gvinsot/thegame:${VERSION}
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
     deploy:
       replicas: 1
       restart_policy:
