@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   thegame:
-    image: registry.methodinfo.fr/gvinsot/thegame:${VERSION}
+    image: ${REGISTRY_URL}/thegame:${VERSION}
     build:
       context: ..
       dockerfile: devops/Dockerfile
