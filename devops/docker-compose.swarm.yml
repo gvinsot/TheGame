@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  thegame:
+    image: thegame:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_NAME=thegame
+      - DOMAIN=thegame.vinsot.fr
+    networks:
+      - thegame-network
+
+networks:
+  thegame-network:
+    driver: overlay
