@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   thegame:
-    image: ${REGISTRY_URL}/thegame:${VERSION}
+    image: registry.methodinfo.fr/thegame:${VERSION:-1.0}
     build:
       context: ..
       dockerfile: devops/Dockerfile
