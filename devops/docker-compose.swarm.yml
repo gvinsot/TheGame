@@ -1,9 +1,6 @@
 services:
   thegame:
     image: registry.methodinfo.fr/thegame:${VERSION:-1.0}
-    build:
-      context: ..
-      dockerfile: devops/Dockerfile
     deploy:
       replicas: 1
       restart_policy:
@@ -14,7 +11,7 @@ services:
         parallelism: 1
         delay: 10s
     ports:
-      - "8080:8080"
+      - "80:80"
     environment:
       - APP_NAME=thegame
       - DOMAIN=thegame.vinsot.fr
