@@ -2,8 +2,8 @@ services:
   thegame:
     build:
       context: .
-      dockerfile: devops/Dockerfile
-    image: registry.methodinfo.fr/thegame:${VERSION:-1.0}
+      dockerfile: Dockerfile
+    image: ghcr.io/gvinsot/thegame:${VERSION:-1.0}
     deploy:
       replicas: 1
       restart_policy:
