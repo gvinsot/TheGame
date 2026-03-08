@@ -3,10 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TheGame</title>
+  <title>BrawlArena 3D</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>TheGame</h1>
-  <p>Placeholder for Android app — source code not found in repository.</p>
+  <!-- CHARACTER SELECT SCREEN -->
+  <div id="menu-screen">
+    <div class="menu-container">
+      <h1 class="game-title">BRAWL<span>ARENA</span></h1>
+      <p class="subtitle">Choose Your Brawler</p>
+      <div class="brawler-select">
+        <div class="brawler-card" data-brawler="tank" tabindex="0">
+          <div class="brawler-preview tank-color"></div>
+          <h3>BULL</h3>
+          <div class="brawler-stats">
+            <div class="stat"><span>HP</span><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div>
+            <div class="stat"><span>DMG</span><div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div></div>
+            <div class="stat"><span>SPD</span><div class="stat-bar"><div class="stat-fill" style="width:40%"></div></div></div>
+            <div class="stat"><span>RNG</span><div class="stat-bar"><div class="stat-fill" style="width:30%"></div></div></div>
+          </div>
+          <p class="brawler-desc">Tanky brawler with a shotgun blast. High HP, short range.</p>
+        </div>
+        <div class="brawler-card" data-brawler="sniper" tabindex="0">
+          <div class="brawler-preview sniper-color"></div>
+          <h3>PIPER</h3>
+          <div class="brawler-stats">
+            <div class="stat"><span>HP</span><div class="stat-bar"><div class="stat-fill" style="width:35%"></div></div></div>
+            <div class="stat"><span>DMG</span><div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div></div>
+            <div class="stat"><span>SPD</span><div class="stat-bar"><div class="stat-fill" style="width:55%"></div></div></div>
+            <div class="stat"><span>RNG</span><div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div></div>
+          </div>
+          <p class="brawler-desc">Long-range sniper. Massive damage from afar, fragile up close.</p>
+        </div>
+        <div class="brawler-card" data-brawler="fighter" tabindex="0">
+          <div class="brawler-preview fighter-color"></div>
+          <h3>PRIMO</h3>
+          <div class="brawler-stats">
+            <div class="stat"><span>HP</span><div class="stat-bar"><div class="stat-fill" style="width:75%"></div></div></div>
+            <div class="stat"><span>DMG</span><div class="stat-bar"><div class="stat-fill" style="width:85%"></div></div></div>
+            <div class="stat"><span>SPD</span><div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div></div>
+            <div class="stat"><span>RNG</span><div class="stat-bar"><div class="stat-fill" style="width:15%"></div></div></div>
+          </div>
+          <p class="brawler-desc">Melee brawler with powerful fists. Fast and deadly up close.</p>
+        </div>
+      </div>
+      <button id="start-btn" class="start-button" disabled>SELECT A BRAWLER</button>
+    </div>
+  </div>
+
+  <!-- GAME HUD -->
+  <div id="game-hud" class="hidden">
+    <div class="hud-top">
+      <div class="player-info">
+        <div class="player-name" id="hud-name">BULL</div>
+        <div class="health-bar-container">
+          <div class="health-bar" id="hud-health"></div>
+          <span class="health-text" id="hud-health-text">1000/1000</span>
+        </div>
+      </div>
+      <div class="game-timer" id="hud-timer">2:00</div>
+      <div class="score-board">
+        <span class="score-label">KILLS</span>
+        <span class="score-value" id="hud-kills">0</span>
+      </div>
+    </div>
+    <div class="hud-bottom">
+      <div class="ammo-display" id="hud-ammo"></div>
+      <div class="controls-hint">WASD Move | Mouse Aim | Click Shoot | Space Super</div>
+    </div>
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div id="gameover-screen" class="hidden">
+    <div class="gameover-container">
+      <h2 id="gameover-title">GAME OVER</h2>
+      <div class="gameover-stats">
+        <div class="go-stat"><span>Kills</span><strong id="go-kills">0</strong></div>
+        <div class="go-stat"><span>Damage Dealt</span><strong id="go-damage">0</strong></div>
+        <div class="go-stat"><span>Survived</span><strong id="go-time">0:00</strong></div>
+      </div>
+      <button id="restart-btn" class="start-button">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <!-- GAME CANVAS -->
+  <div id="game-container"></div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
