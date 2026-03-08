@@ -273,18 +273,24 @@ function shoot(entity, dirX, dirZ) {
   entity.mesh.rotation.y = Math.atan2(dirX, dirZ);
 }
 
-function useSuper(entity) {
+function useSuper(entity, dirOverride) {
   if (!entity.superReady) return;
-  entity.superReady = false;
-  entity.superCharge = 0;
 
   const def = BRAWLER_DEFS[entity.type];
   const pos = entity.mesh.position;
 
+  // Get direction: use override for AI, mouse aim for player
+  let dir = dirOverride || null;
+  if (!dir && entity.isPlayer) {
+    dir = getAimDirection();
+  }
+  if (!dir) dir = { x: 0, z: 1 };
+
+  entity.superReady = false;
+  entity.superCharge = 0;
+
   if (entity.type === 'tank') {
     // Bull rush - charge forward dealing damage
-    const dir = getAimDirection();
-    if (!dir) return;
     for (let i = 0; i < 8; i++) {
       const offset = (i - 3.5) * 0.3;
       const angle = Math.atan2(dir.x, dir.z) + offset * 0.15;
@@ -302,7 +308,6 @@ function useSuper(entity) {
     }
   } else if (entity.type === 'sniper') {
     // Piper bomb - AoE explosion at target
-    const dir = getAimDirection() || { x: 0, z: 1 };
     for (let i = 0; i < 12; i++) {
       const angle = (i / 12) * Math.PI * 2;
       const pdx = Math.sin(angle);
@@ -326,7 +331,6 @@ function useSuper(entity) {
     entity.mesh.position.z = newPos.z;
   } else if (entity.type === 'fighter') {
     // Primo elbow drop - leap and AoE
-    const dir = getAimDirection() || { x: 0, z: 1 };
     const landX = pos.x + dir.x * 6;
     const landZ = pos.z + dir.z * 6;
     const newPos = checkCollision(landX, landZ, def.bodyRadius, game.arenaData);
@@ -561,7 +565,7 @@ function updatePlayer(dt) {
 
   // Super
   if (game.input.super) {
-    useSuper(game.player);
+    useSuper(game.player, null);
   }
 
   // Reload ammo
@@ -688,7 +692,7 @@ function gameLoop() {
   // AI updates
   for (const ai of game.aiControllers) {
     if (ai.entity.alive) {
-      ai.update(dt, game.entities, shoot);
+      ai.update(dt, game.entities, shoot, useSuper);
     }
   }
 

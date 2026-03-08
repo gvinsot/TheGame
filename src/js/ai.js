@@ -57,7 +57,7 @@ export class AIController {
     return closest;
   }
 
-  update(dt, entities, shootCallback) {
+  update(dt, entities, shootCallback, useSuperCallback) {
     const def = BRAWLER_DEFS[this.entity.type];
     this.thinkTimer -= dt;
     this.stateTimer -= dt;
@@ -180,6 +180,21 @@ export class AIController {
       const dx = this.target.mesh.position.x - pos.x;
       const dz = this.target.mesh.position.z - pos.z;
       this.entity.mesh.rotation.y = Math.atan2(dx, dz);
+    }
+
+    // Use super ability when ready and target is in range
+    if (useSuperCallback && this.entity.superReady && this.target && this.target.hp > 0) {
+      const dx = this.target.mesh.position.x - pos.x;
+      const dz = this.target.mesh.position.z - pos.z;
+      const dist = Math.sqrt(dx * dx + dz * dz);
+      // Use super based on brawler type strategy
+      const shouldUse = (this.entity.type === 'fighter' && dist < 8) ||
+                        (this.entity.type === 'tank' && dist < def.range * 1.5) ||
+                        (this.entity.type === 'sniper' && dist < 6);
+      if (shouldUse) {
+        const dirLen = Math.sqrt(dx * dx + dz * dz);
+        useSuperCallback(this.entity, { x: dx / dirLen, z: dz / dirLen });
+      }
     }
   }
 
