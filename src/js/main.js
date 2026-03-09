@@ -15,7 +15,7 @@ const game = {
   entities: [],
   projectiles: [],
   aiControllers: [],
-  input: { w: false, a: false, s: false, d: false, mouse: new THREE.Vector2(), shooting: false, super: false },
+  input: { z: false, q: false, s: false, d: false, mouse: new THREE.Vector2(), shooting: false, super: false },
   raycaster: new THREE.Raycaster(),
   groundPlane: new THREE.Plane(new THREE.Vector3(0, 1, 0), 0),
   stats: { kills: 0, damage: 0, startTime: 0 },
@@ -537,9 +537,9 @@ function updatePlayer(dt) {
   const pos = game.player.mesh.position;
   let mx = 0, mz = 0;
 
-  if (game.input.w) mz -= 1;
+  if (game.input.z) mz -= 1;
   if (game.input.s) mz += 1;
-  if (game.input.a) mx -= 1;
+  if (game.input.q) mx -= 1;
   if (game.input.d) mx += 1;
 
   if (mx || mz) {
