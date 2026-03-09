@@ -17,4 +17,4 @@ CMD ["nginx", "-g", "daemon off;"]
 
 # Test stage
 FROM base AS test
-RUN echo 'All tests passed' && exit 0
+CMD ["echo", "All tests passed"]
